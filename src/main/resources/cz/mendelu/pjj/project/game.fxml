@@ -225,11 +225,21 @@
 
 
     <children>
-        <Label text="Dice 1:" layoutX="850.0" layoutY="140.0"/>
-        <Label text="Dice 2:" layoutX="925.0" layoutY="140.0"/>
+        <Label fx:id="textDice1" text="Dice 1:" layoutX="850.0" layoutY="140.0" visible="true"/>
+        <Label fx:id="textDice2"  text="Dice 2:" layoutX="925.0" layoutY="140.0" visible="true"/>
+        <Label fx:id="textDice"  text="" layoutX="925.0" layoutY="140.0" visible="false"/>
         <Label fx:id="dice1" alignment="CENTER" layoutX="900.0" layoutY="140.0" text="0"/>
         <Label fx:id="dice2" alignment="CENTER" layoutX="975.0" layoutY="140.0" text="0"/>
-        <Button layoutX="900.0" layoutY="100.0" mnemonicParsing="false" onAction="#onRollClick" prefHeight="0.0" prefWidth="38.0" text="Roll" />
+        <Button layoutX="850.0" layoutY="100.0" mnemonicParsing="false" onAction="#onRollClick" prefHeight="0.0" prefWidth="38.0" text="Roll" />
+    </children>
+
+    <VBox fx:id="buttonSwitch" visible="false" layoutX="900.0" layoutY="100.0">
+        <Button  onAction="#switchDice" prefHeight="0.0" prefWidth="100.0" text="Switch dice" />
+    </VBox>
+
+    <children >
+        <Label fx:id="notification"  layoutX="875.0" layoutY="180.0" text="Please roll dice" stylesheets="@styles.css"/>
+        <Label fx:id="colorTurn"  layoutX="875.0" layoutY="200.0" text=""/>
     </children>
 
     <children>

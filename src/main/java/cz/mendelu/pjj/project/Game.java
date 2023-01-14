@@ -2,7 +2,6 @@ package cz.mendelu.pjj.project;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.*;
@@ -23,7 +22,7 @@ public class Game {
         return random.nextInt(6) + 1;
     }
 
-    public static void posun(ImageView imageView, int changePozition) {
+    public static void turn(ImageView imageView, int changePozition) {
         ChessPiece chessPiece = chessPieces.get(imageView);
         if (chessPiece.color() == Color.White){
             if (changePozition == 25) chessPieces.remove(imageView);
@@ -33,11 +32,6 @@ public class Game {
         chessPiece.setPositionX(changePozition);
     }
 
-
-
-//    public static void move(ChessPiece chessPiece, int position){
-//
-//    }
 
     /**
      * Check if the player has won
@@ -86,120 +80,6 @@ public class Game {
         if (changedPosition >= minPosition && changedPosition <= maxPosition) return true;
         return false;
     }
-
-    public static Map<ImageView, ChessPiece> chessPiecesWhite() {
-        return chessPieces;
-    }
-
-    /**
-     * The turn of the game with checking and changing the position of the chess piece
-     * @param color player color, where to go now
-     */
-    public static void turn(Color color){
-
-        boolean checkTurn = true;
-        int dice1 = roll();
-        int dice2 = roll();
-        Scanner in = new Scanner(System.in);
-        int choseChess = 0;
-        int choseDice = 0;
-        int position = 0;
-        ChessPiece chessPiece = null;
-        System.out.println(color + " player's move");
-        System.out.println("Dice 1: " + dice1 + " Dice 2: " + dice2);
-
-        while(checkTurn){
-            boolean сheckChose = true;
-
-            while(сheckChose){
-                System.out.println("Choose сhess piece (1-15): ");
-                choseChess = in.nextInt();
-                if (choseChess >= 1 && choseChess <= 15)  {
-                    сheckChose = false;
-                    if(color == Color.White){
-                        chessPiece = chessPieces.get(choseChess - 1);
-                    } else if(color == Color.Black) {
-                        chessPiece = chessPieces.get(choseChess - 1);
-                    } else {
-                        throw new IllegalArgumentException("Error: color is not exist");
-                    }
-
-                    if(chessPiece.statusWin() == true) {
-                        сheckChose = true;
-                        System.out.println("The chess piece is already in the winning position");
-                    }
-                }
-                else System.out.println("Wrong choose сhess piece");
-            }
-
-            сheckChose = true;
-
-            while(сheckChose){
-                System.out.println("Choose dices (1-2): ");
-                choseDice = in.nextInt();
-                if (choseDice >= 1 && choseDice <= 2)  сheckChose = false;
-                else System.out.println("Wrong choose dice");
-
-                if(color == Color.White){
-                    chessPiece = chessPieces.get(choseChess - 1);
-                } else if(color == Color.Black) {
-                    chessPiece = chessPieces.get(choseChess - 1);
-                } else {
-                    throw new IllegalArgumentException("Error: color is not exist");
-                }
-
-                if(chessPiece.statusWin() == true) {
-                    сheckChose = true;
-                    System.out.println("The chess piece is already in the winning position");
-                }
-            }
-
-            position = chessPiece.positionX();
-
-            position -= (choseDice == 1 ? dice1 : dice2);
-
-            if (position < minPosition) {
-                position = maxPosition + position;
-            }
-
-            if(canMove(position) == true){
-                checkTurn = false;
-            }
-        }
-
-        checkTurn = true;
-
-        while (checkTurn) {
-
-            boolean сheckChose = true;
-            System.out.println("Second dice");
-
-            while(сheckChose){
-                System.out.println("Choose сhess piece (1-15): ");
-                choseChess = in.nextInt();
-                if (choseChess >= 1 && choseChess <= 15)  сheckChose = false;
-                else System.out.println("Wrong choose сhess piece");
-            }
-
-            if(color == Color.White){
-                chessPiece = chessPieces.get(choseChess - 1);
-                position = chessPiece.positionX();
-            } else {
-                chessPiece = chessPieces.get(choseChess - 1);
-                position = chessPiece.positionX();
-            }
-
-            position -= (choseDice == 1 ? dice2 : dice1);
-
-            if (position < minPosition) position = maxPosition + position;
-
-            if(canMove(position) == true){
-                checkTurn = false;
-                System.out.println("End turn");
-            }
-        }
-    }
-
 
 }
 
