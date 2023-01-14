@@ -231,4 +231,24 @@
         <Label fx:id="dice2" alignment="CENTER" layoutX="975.0" layoutY="140.0" text="0"/>
         <Button layoutX="900.0" layoutY="100.0" mnemonicParsing="false" onAction="#onRollClick" prefHeight="0.0" prefWidth="38.0" text="Roll" />
     </children>
+
+    <children>
+        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="100.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+        <Label text="Win white: " layoutX="80.0" layoutY="155.0"/>
+        <Label fx:id="winWhite" alignment="CENTER" layoutX="150.0" layoutY="155.0" text="0"/>
+    </children>
+
+    <children>
+        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" x="100.0" y="600.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+        <Label text="Win black: " layoutX="80.0" layoutY="655.0"/>
+        <Label fx:id="winBlack" alignment="CENTER" layoutX="150.0" layoutY="655.0" text="0"/>
+    </children>
 </AnchorPane>

@@ -3,6 +3,8 @@ package cz.mendelu.pjj.project;
 import javafx.animation.PathTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,10 +25,23 @@ import java.util.*;
 
 public class Controller implements Initializable{
     @FXML
-    private Label dice1, dice2;
+    private Label dice1, dice2, winWhite, winBlack;
+    int countWinWhite = 0, countWinBlack = 0;
+
+    private static IntegerProperty diceNumber1 = new SimpleIntegerProperty();
+    private static IntegerProperty diceNumber2 = new SimpleIntegerProperty();
 
     ArrayList<Double> pozitionX = new ArrayList<Double>(
             List.of(212.0, 259.5, 307.5, 354.0, 401.0, 448.5, 528.0, 576.0, 624.0, 670.0, 716.0, 765.0));
+
+    ArrayList<Double> pozitionLowY = new ArrayList<Double>(
+            List.of(636.0, 588.0, 540.0, 492.0, 444.0));
+
+    ArrayList<Double> pozitionHiY = new ArrayList<Double>(
+            List.of(84.0, 132.0, 180.0, 228.0, 276.0));
+
+    private double whiteWinCordinate = 100.0;
+    private double blackWinCordinateY = 600.0;
 
 
     @FXML
@@ -37,15 +52,18 @@ public class Controller implements Initializable{
 
     @FXML
     protected void onRollClick() {
-        dice1.setText(String.valueOf(Game.roll()));
-        dice2.setText(String.valueOf(Game.roll()));
+        int x1 = Game.roll();
+        int x2 = Game.roll();
+        diceNumber1.setValue(x1);
+        diceNumber2.setValue(x2);
+        dice1.setText(String.valueOf(x1));
+        dice2.setText(String.valueOf(x2));
     }
 
     @FXML
     protected void clickFigure(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
         onTranslateTransition(imageView);
-        Game.posun(imageView);
     }
 
     @FXML
@@ -55,45 +73,97 @@ public class Controller implements Initializable{
                         imageView);
 
         ChessPiece chessPiece = Game.chessPieces.get(imageView);
-        double x = pozitionX.get(pozitionX.indexOf(imageView.getX()));
-        System.out.println(x);
-        if (chessPiece.color() == Color.White){
-            if(chessPiece.positionX() == 12){
-
-            } else if (chessPiece.positionX() > 12) {
-                double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) + 1);
-                System.out.println(x);
-                System.out.println(x1);
-                imageView.setX(x1);
-            } else if (chessPiece.positionX() < 12) {
-                double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) - 1);
-                System.out.println(x);
-                System.out.println(x1);
-                imageView.setX(x1);
-            }
-        } else if (chessPiece.color() == Color.Black) {
-            if(chessPiece.positionX() == 13){
-
-            } else if (chessPiece.positionX() > 13) {
-                double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) - 1);
-                System.out.println(x);
-                System.out.println(x1);
-                imageView.setX(x1);
-            } else if (chessPiece.positionX() < 13) {
-                double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) + 1);
-                System.out.println(x);
-                System.out.println(x1);
-                imageView.setX(x1);
-            }
+        int howChangePozition = 0;
+        
+        if (diceNumber1.get() != 0) {
+            howChangePozition = diceNumber1.get();
+            diceNumber1.setValue(0);
+        } else if (diceNumber2.get() != 0) {
+            howChangePozition = diceNumber2.get();
+            diceNumber2.setValue(0);
+        } else {
+            System.out.println("Please roll dice");
         }
 
+        if (howChangePozition != 0) {
+            int changePozition = 0;
+            int countChess = 0;
+            double y1 = 0;
+            boolean anotherChess = true;
+
+            if (chessPiece.color() == Color.White) changePozition = chessPiece.positionX() + howChangePozition;
+            else if (chessPiece.color() == Color.Black) changePozition = chessPiece.positionX() - howChangePozition;
 
 
-//        tt.setByX(x1 - x);
-//        tt.setAutoReverse(true);
-//        tt.play();
+            if (Game.canMove(changePozition)) {
 
+                for (ChessPiece c : Game.chessPieces.values()) {
+                    if (c.positionX() == (changePozition)) {
+                        countChess++;
+                        if (c.color() != chessPiece.color()) {
+                            anotherChess = false;
+                        }
+                    }
+                }
+                if (countChess < 5 && anotherChess == true) {
+
+
+                    System.out.println(howChangePozition);
+
+                    if (changePozition >= 13) y1 = pozitionHiY.get(countChess);
+                    else if (changePozition <= 12) y1 = pozitionLowY.get(countChess);
+
+                    imageView.setY(y1);
+                    if (chessPiece.color() == Color.White) {
+                        if (changePozition == 25) {
+                            imageView.setX(whiteWinCordinate);
+                            imageView.setY(whiteWinCordinate);
+                            countWinWhite++;
+                            winWhite.setText(String.valueOf(countWinWhite));
+                        } else if (chessPiece.positionX() <= 12 && changePozition > 12) {
+                            if (changePozition == 13) {
+                                imageView.setX(pozitionX.get(0));
+                            } else {
+                                imageView.setX(pozitionX.get(howChangePozition - 1));
+                            }
+                        } else if (chessPiece.positionX() > 12) {
+                            double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) + howChangePozition);
+                            imageView.setX(x1);
+                        } else if (chessPiece.positionX() < 12) {
+                            double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) - howChangePozition);
+                            imageView.setX(x1);
+                        }
+                    } else if (chessPiece.color() == Color.Black) {
+                        if (changePozition == 0) {
+                            imageView.setX(whiteWinCordinate);
+                            imageView.setY(blackWinCordinateY);
+                            countWinBlack++;
+                            winBlack.setText(String.valueOf(countWinBlack));
+                        } else if (chessPiece.positionX() >= 13 && changePozition < 13) {
+                            if (changePozition == 12) {
+                                imageView.setX(pozitionX.get(0));
+                            } else {
+                                imageView.setX(pozitionX.get(howChangePozition - 1));
+                            }
+                        } else if (chessPiece.positionX() > 13) {
+                            double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) - howChangePozition);
+                            imageView.setX(x1);
+                        } else if (chessPiece.positionX() < 13) {
+                            double x1 = pozitionX.get(pozitionX.indexOf(imageView.getX()) + howChangePozition);
+                            imageView.setX(x1);
+                        }
+                    }
+                    Game.posun(imageView, changePozition);
+                } else {
+                    System.out.println("Wrong turn");
+                }
+            } else {
+                System.out.println("Wrong turn");
+            }
+        }
     }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

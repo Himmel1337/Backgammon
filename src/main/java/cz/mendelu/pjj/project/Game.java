@@ -10,8 +10,8 @@ import java.util.*;
 public class Game {
     static Map<ImageView, ChessPiece> chessPieces = new HashMap<>();
 
-    public static final int minPosition = 1;
-    public static final int maxPosition = 24;
+    public static final int minPosition = 0;
+    public static final int maxPosition = 25;
     public static final int countChessPiece = 15;
 
     private static IntegerProperty diceNumber = new SimpleIntegerProperty();
@@ -23,19 +23,14 @@ public class Game {
         return random.nextInt(6) + 1;
     }
 
-    public static void posun(ImageView imageView) {
+    public static void posun(ImageView imageView, int changePozition) {
         ChessPiece chessPiece = chessPieces.get(imageView);
-
-        System.out.println(chessPiece.positionX());
-        System.out.println("id: " + chessPiece.id());
-
-        if (chessPiece.color() == Color.White) {
-            chessPiece.setPositionX(chessPiece.positionX() + 1);
-        } else if (chessPiece.color() == Color.Black) {
-            chessPiece.setPositionX(chessPiece.positionX() - 1);
+        if (chessPiece.color() == Color.White){
+            if (changePozition == 25) chessPieces.remove(imageView);
+        } else if (chessPiece.color() == Color.Black){
+            if (changePozition == 0) chessPieces.remove(imageView);
         }
-
-        System.out.println(chessPiece.positionX());
+        chessPiece.setPositionX(changePozition);
     }
 
 
