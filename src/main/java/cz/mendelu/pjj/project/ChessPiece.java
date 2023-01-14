@@ -1,18 +1,25 @@
 package cz.mendelu.pjj.project;
 
+import javafx.scene.image.ImageView;
+
 public class ChessPiece {
     private Color color;
     private int positionX;
     private int positionY;
     private boolean statusWin;
     private boolean statusMove;
+    private int id;
 
-    ChessPiece(Color color, int positionX, int positionY){
+    private ImageView imageView;
+
+    ChessPiece(Color color, int positionX, int positionY, int id, ImageView imageView){
         this.color = color;
         this.positionX = positionX;
         this.positionY = positionY;
         this.statusWin = false;
         this.statusMove = false;
+        this.id = id;
+        this.imageView = imageView;
     }
 
     public Color color() {
@@ -51,11 +58,7 @@ public class ChessPiece {
         this.statusWin = true;
     }
 
-    public boolean statusMove() {
-        return statusMove;
-    }
-
-    public void setStatusMove() {
-        this.statusMove = true;
+    public int id() {
+        return id;
     }
 }

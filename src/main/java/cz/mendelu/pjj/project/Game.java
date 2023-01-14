@@ -1,26 +1,106 @@
 package cz.mendelu.pjj.project;
 
-import java.util.Random;
-import java.util.Scanner;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.util.*;
 
 public class Game {
-    private Board board;
+    static Map<ImageView, ChessPiece> chessPieces = new HashMap<>();
+
+    public static final int minPosition = 1;
+    public static final int maxPosition = 24;
+    public static final int countChessPiece = 15;
+
+    private static IntegerProperty diceNumber = new SimpleIntegerProperty();
+    public IntegerProperty getDiceNumber(){return diceNumber;};
 
     private static Random random = new Random();
 
-    public Game(){
-        this.board = new Board();
-    }
-
     public static int roll() {
         return random.nextInt(6) + 1;
+    }
+
+    public static void posun(ImageView imageView) {
+        ChessPiece chessPiece = chessPieces.get(imageView);
+
+        System.out.println(chessPiece.positionX());
+        System.out.println("id: " + chessPiece.id());
+
+        if (chessPiece.color() == Color.White) {
+            chessPiece.setPositionX(chessPiece.positionX() + 1);
+        } else if (chessPiece.color() == Color.Black) {
+            chessPiece.setPositionX(chessPiece.positionX() - 1);
+        }
+
+        System.out.println(chessPiece.positionX());
+    }
+
+
+
+//    public static void move(ChessPiece chessPiece, int position){
+//
+//    }
+
+    /**
+     * Check if the player has won
+     * @param color player color, where to go now to check victory
+     */
+    public boolean win(Color color){
+        if (color == Color.White){
+            int winWhite = 0;
+            for (ChessPiece chess : chessPieces.values()){
+                if (chess.statusWin() == true){
+                    winWhite++;
+                }
+            }
+            if (winWhite == this.countChessPiece){
+                System.out.println("White win");
+                return true;
+            }
+        } else if (color == Color.Black){
+            int winBlack = 0;
+            for (ChessPiece chess : chessPieces.values()){
+                if (chess.statusWin() == true){
+                    winBlack++;
+                }
+            }
+            if (winBlack == this.countChessPiece){
+                System.out.println("Black win");
+                return true;
+            }
+        } else {
+            throw new IllegalArgumentException("Color is not exist");
+        }
+        return false;
+    }
+
+    public static void putChess(ImageView imageView, ChessPiece chessPiece) {
+       chessPieces.put(imageView, chessPiece);
+    }
+
+    /**
+     * The function checks if there is a chess piece of the opposite color in position x
+     * @param changedPosition position to be checked
+     * @return If there is no chess piece of the opposite color in position x, return True, if there is, return False
+     */
+
+    public static boolean canMove(int changedPosition){
+        if (changedPosition >= minPosition && changedPosition <= maxPosition) return true;
+        return false;
+    }
+
+    public static Map<ImageView, ChessPiece> chessPiecesWhite() {
+        return chessPieces;
     }
 
     /**
      * The turn of the game with checking and changing the position of the chess piece
      * @param color player color, where to go now
      */
-    public void turn(Color color){
+    public static void turn(Color color){
 
         boolean checkTurn = true;
         int dice1 = roll();
@@ -42,9 +122,9 @@ public class Game {
                 if (choseChess >= 1 && choseChess <= 15)  {
                     сheckChose = false;
                     if(color == Color.White){
-                        chessPiece = board.chessPiecesWhite().get(choseChess - 1);
+                        chessPiece = chessPieces.get(choseChess - 1);
                     } else if(color == Color.Black) {
-                        chessPiece = board.chessPiecesBlack().get(choseChess - 1);
+                        chessPiece = chessPieces.get(choseChess - 1);
                     } else {
                         throw new IllegalArgumentException("Error: color is not exist");
                     }
@@ -66,9 +146,9 @@ public class Game {
                 else System.out.println("Wrong choose dice");
 
                 if(color == Color.White){
-                    chessPiece = board.chessPiecesWhite().get(choseChess - 1);
+                    chessPiece = chessPieces.get(choseChess - 1);
                 } else if(color == Color.Black) {
-                    chessPiece = board.chessPiecesBlack().get(choseChess - 1);
+                    chessPiece = chessPieces.get(choseChess - 1);
                 } else {
                     throw new IllegalArgumentException("Error: color is not exist");
                 }
@@ -83,12 +163,11 @@ public class Game {
 
             position -= (choseDice == 1 ? dice1 : dice2);
 
-            if (position < board.minPosition()) {
-                position = board.maxPosition() + position;
+            if (position < minPosition) {
+                position = maxPosition + position;
             }
 
-            if(board.canMove(position, color) == true){
-                board.move(chessPiece, position);
+            if(canMove(position) == true){
                 checkTurn = false;
             }
         }
@@ -108,71 +187,24 @@ public class Game {
             }
 
             if(color == Color.White){
-                chessPiece = board.chessPiecesWhite().get(choseChess - 1);
+                chessPiece = chessPieces.get(choseChess - 1);
                 position = chessPiece.positionX();
             } else {
-                chessPiece = board.chessPiecesBlack().get(choseChess - 1);
+                chessPiece = chessPieces.get(choseChess - 1);
                 position = chessPiece.positionX();
             }
 
             position -= (choseDice == 1 ? dice2 : dice1);
 
-            if (position < board.minPosition()) position = board.maxPosition() + position;
+            if (position < minPosition) position = maxPosition + position;
 
-            if(board.canMove(position, color) == true){
-                board.move(chessPiece, position);
+            if(canMove(position) == true){
                 checkTurn = false;
                 System.out.println("End turn");
             }
         }
     }
 
-    /**
-     * Check if the player has won
-     * @param color player color, where to go now to check victory
-     */
-    public boolean win(Color color){
-        if (color == Color.White){
-            int winWhite = 0;
-            for (ChessPiece chess : this.board.chessPiecesWhite()){
-                if (chess.statusWin() == true){
-                    winWhite++;
-                }
-            }
-            if (winWhite == this.board.countChessPiece()){
-                System.out.println("White win");
-                return true;
-            }
-        } else if (color == Color.Black){
-            int winBlack = 0;
-            for (ChessPiece chess : this.board.chessPiecesBlack()){
-                if (chess.statusWin() == true){
-                    winBlack++;
-                }
-            }
-            if (winBlack == this.board.countChessPiece()){
-                System.out.println("Black win");
-                return true;
-            }
-        } else {
-            throw new IllegalArgumentException("Color is not exist");
-        }
-        return false;
-    }
 
-    public Board board() {
-        return board;
-    }
-
-//    public static void main(String[] args){
-//        Game game = new Game();
-//        boolean win = false;
-//        while(win == false){
-//            game.turn(Color.White);
-//            game.turn(Color.Black);
-//            if (game.win(Color.White) == true) win = true;
-//            if (game.win(Color.Black) == true) win = true;
-//        }
-//
-//    }
 }
+

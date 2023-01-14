@@ -2,23 +2,24 @@ package cz.mendelu.pjj.project;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class Main extends Application {
-    Game game;
+    private Pane pane;
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("game.fxml"));
-//        Parent root = fxmlLoader.load();
-//        game = (Game) fxmlLoader.getNamespace().get("game");
-//        root.setId("game");
-//        stage.setTitle("Backgammon");
-        Scene scene = new Scene(fxmlLoader.load(), 1366, 768);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("game.fxml"));
+//        Parent root = loader.load();
+        pane = (Pane) loader.getNamespace().get("pane");
+//        root.setId("pane");
+        primaryStage.setTitle("Backgamon");
+        Scene scene = new Scene(loader.load(), 1024, 768);
+//        scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

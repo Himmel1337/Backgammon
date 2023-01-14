@@ -1,16 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="cz.mendelu.pjj.project.Controller">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<AnchorPane fx:id="pane" prefHeight="1024.0" prefWidth="1024.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.mendelu.pjj.project.Controller">
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Roll" onAction="#onRollClick"/>
-</VBox>
+    <children>
+        <ImageView fx:id="white1" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="636.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white2" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="588.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white3" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="540.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white4" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="492.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white5" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="444.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white6" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="765.0" y="636.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white7" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="765.0" y="588.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white8" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="84.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white9" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="132.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white10" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="180.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white11" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="228.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white12" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="276.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white13" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="401.0" y="84.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white14" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="401.0" y="132.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="white15" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="401.0" y="180.0">
+            <image>
+                <Image url="@white.png" />
+            </image>
+        </ImageView>
+    </children>
+
+
+    <children>
+        <ImageView fx:id="black1" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="84.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black2" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="132.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black3" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="180.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black4" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="228.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black5" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="212.0" y="276.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black6" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="765.0" y="84.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black7" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="765.0" y="132.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black8" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="636.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black9" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="588.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black10" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="540.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black11" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="492.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black12" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="528.0" y="444.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black13" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="401.0" y="636.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black14" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="401.0" y="588.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+    <children>
+        <ImageView fx:id="black15" fitHeight="48.0" fitWidth="48.0" onMouseClicked="#clickFigure" pickOnBounds="true" preserveRatio="true" x="401.0" y="540.0">
+            <image>
+                <Image url="@black.png" />
+            </image>
+        </ImageView>
+    </children>
+
+
+
+
+
+    <children>
+        <Label text="Dice 1:" layoutX="850.0" layoutY="140.0"/>
+        <Label text="Dice 2:" layoutX="925.0" layoutY="140.0"/>
+        <Label fx:id="dice1" alignment="CENTER" layoutX="900.0" layoutY="140.0" text="0"/>
+        <Label fx:id="dice2" alignment="CENTER" layoutX="975.0" layoutY="140.0" text="0"/>
+        <Button layoutX="900.0" layoutY="100.0" mnemonicParsing="false" onAction="#onRollClick" prefHeight="0.0" prefWidth="38.0" text="Roll" />
+    </children>
+</AnchorPane>
