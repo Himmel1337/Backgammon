@@ -230,7 +230,10 @@
         <Label fx:id="textDice"  text="" layoutX="925.0" layoutY="140.0" visible="false"/>
         <Label fx:id="dice1" alignment="CENTER" layoutX="900.0" layoutY="140.0" text="0"/>
         <Label fx:id="dice2" alignment="CENTER" layoutX="975.0" layoutY="140.0" text="0"/>
-        <Button layoutX="850.0" layoutY="100.0" mnemonicParsing="false" onAction="#onRollClick" prefHeight="0.0" prefWidth="38.0" text="Roll" />
+        <VBox fx:id="buttonRoll" visible="true" layoutX="850.0" layoutY="100.0">
+            <Button  onAction="#onRollClick" prefHeight="0.0" prefWidth="38.0" text="Roll" />
+        </VBox>
+
     </children>
 
     <VBox fx:id="buttonSwitch" visible="false" layoutX="900.0" layoutY="100.0">
@@ -239,7 +242,7 @@
 
     <children >
         <Label fx:id="notification"  layoutX="875.0" layoutY="180.0" text="Please roll dice" stylesheets="@styles.css"/>
-        <Label fx:id="colorTurn"  layoutX="875.0" layoutY="200.0" text=""/>
+        <Label fx:id="colorTurn"  layoutX="875.0" layoutY="200.0" text="" visible="true"/>
     </children>
 
     <children>
@@ -248,7 +251,7 @@
                 <Image url="@white.png" />
             </image>
         </ImageView>
-        <Label text="Win white: " layoutX="80.0" layoutY="155.0"/>
+        <Label text="Win chess: " layoutX="80.0" layoutY="155.0"/>
         <Label fx:id="winWhite" alignment="CENTER" layoutX="150.0" layoutY="155.0" text="0"/>
     </children>
 
@@ -258,7 +261,7 @@
                 <Image url="@black.png" />
             </image>
         </ImageView>
-        <Label text="Win black: " layoutX="80.0" layoutY="655.0"/>
+        <Label text="Win chess: " layoutX="80.0" layoutY="655.0"/>
         <Label fx:id="winBlack" alignment="CENTER" layoutX="150.0" layoutY="655.0" text="0"/>
     </children>
 </AnchorPane>

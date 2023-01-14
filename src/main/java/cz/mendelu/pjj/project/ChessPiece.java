@@ -6,8 +6,6 @@ public class ChessPiece {
     private Color color;
     private int positionX;
     private int positionY;
-    private boolean statusWin;
-    private boolean statusMove;
     private int id;
 
     private ImageView imageView;
@@ -16,8 +14,6 @@ public class ChessPiece {
         this.color = color;
         this.positionX = positionX;
         this.positionY = positionY;
-        this.statusWin = false;
-        this.statusMove = false;
         this.id = id;
         this.imageView = imageView;
     }
@@ -50,13 +46,6 @@ public class ChessPiece {
         }
     }
 
-    public boolean statusWin() {
-        return statusWin;
-    }
-
-    public void setStatusWin() {
-        this.statusWin = true;
-    }
 
     public int id() {
         return id;

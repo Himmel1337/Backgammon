@@ -18,7 +18,7 @@ public class Controller implements Initializable{
     private Color playerTurn = null;
 
     @FXML
-    protected VBox buttonSwitch;
+    protected VBox buttonSwitch, buttonRoll;
 
     int countWinWhite = 0, countWinBlack = 0;
 
@@ -44,6 +44,9 @@ public class Controller implements Initializable{
     @FXML
     private ImageView black1, black2, black3, black4, black5, black6, black7, black8, black9, black10, black11, black12, black13, black14, black15;
 
+    /**
+     * Roll of dice
+     */
     @FXML
     protected void onRollClick() {
         int x1 = Game.roll();
@@ -77,6 +80,23 @@ public class Controller implements Initializable{
         textDice.setText("");
     }
 
+    /**
+     * Removes the interface when winning
+     */
+    public void win(){
+        buttonSwitch.setVisible(false);
+        dice2.setVisible(false);
+        dice1.setVisible(false);
+        textDice1.setVisible(false);
+        textDice2.setVisible(false);
+        textDice.setVisible(false);
+        buttonRoll.setVisible(false);
+        colorTurn.setVisible(false);
+    }
+
+    /**
+     * Swap the first dice with the second if the first dice is not suitable for the move
+     */
     @FXML
     public void switchDice (){
         int x = diceNumber1.get();
@@ -86,15 +106,22 @@ public class Controller implements Initializable{
         dice2.setText(String.valueOf(diceNumber2.get()));
     }
 
-
+    /**
+     * Selects the clicked object
+     * @param event
+     */
     @FXML
     protected void clickFigure(MouseEvent event) {
         ImageView imageView = (ImageView) event.getSource();
-        onTranslateTransition(imageView);
+        turn(imageView);
     }
 
+    /**
+     * Move method. Moves a chess
+     * @param imageView
+     */
     @FXML
-    private void onTranslateTransition(ImageView imageView) {
+    private void turn(ImageView imageView) {
 
         ChessPiece chessPiece = Game.chessPieces.get(imageView);
         int howChangePozition = 0;
@@ -156,7 +183,10 @@ public class Controller implements Initializable{
                                 imageView.setY(whiteWinCordinate);
                                 countWinWhite++;
                                 winWhite.setText(String.valueOf(countWinWhite));
-                                if (countWinWhite == 15) notification.setText("Win white");
+                                if (countWinWhite == 15) {
+                                    notification.setText("Win white");
+                                    win();
+                                }
                             } else if (chessPiece.positionX() <= 12 && changePozition > 12) {
                                 if (changePozition == 13) {
                                     imageView.setX(pozitionX.get(0));
@@ -176,7 +206,10 @@ public class Controller implements Initializable{
                                 imageView.setY(blackWinCordinateY);
                                 countWinBlack++;
                                 winBlack.setText(String.valueOf(countWinBlack));
-                                if (countWinBlack == 15) notification.setText("Win black");
+                                if (countWinBlack == 15) {
+                                    notification.setText("Win black");
+                                    win();
+                                }
                             } else if (chessPiece.positionX() >= 13 && changePozition < 13) {
                                 if (changePozition == 12) {
                                     imageView.setX(pozitionX.get(0));
@@ -191,7 +224,7 @@ public class Controller implements Initializable{
                                 imageView.setX(x1);
                             }
                         }
-                        Game.turn(imageView, changePozition);
+                        Game.move(imageView, changePozition, countChess);
                     } else {
                         notification.setText("Wrong turn");
                         if (diceNumber1.get() == 0 && diceNumber2.get() == 0) diceNumber2.setValue(howChangePozition);
@@ -209,7 +242,11 @@ public class Controller implements Initializable{
     }
 
 
-
+    /**
+     * Create all the chess on and put them on the right spot
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
